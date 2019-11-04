@@ -38,4 +38,8 @@ Route::group(['prefix' => 'dashboard/admin', 'middleware' => 'IsAdmin'], functio
 	Route::post('/meal/update', 'MealController@update')->name('meal.update');
 	Route::get('/meal/{id}/delete','MealController@delete')->name('meal.delete');
 	Route::get('/meal/{id}/restore','MealController@restore')->name('meal.restore');
+	Route::get('/meal/{id}/order','MealController@order')->name('meal.order.index');
+	Route::post('/meal/order/store','MealController@orderStore')->name('meal.order.store');
+	Route::get('/meal/{id}/order/delete','MealController@orderDelete')->name('meal.order.delete');
+	Route::get('/meal/{id}/order/restore','MealController@orderRestore')->name('meal.order.restore');
 });

@@ -30,6 +30,7 @@
                             @else
                                 <a href="" data-toggle="modal" data-target="#categoryEdit{{ $row->id }}" class="btn btn-sm btn-info"><i class="fas fa-edit"></i></a></a>
                                 <a href="{{ route('meal.delete', $row->id) }}" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></a>
+                                <a href="{{ route('meal.order.index', $row->id) }}" class="btn btn-sm btn-info"><i class="fas fa-plus-square"></i></a>
                             @endif
                         </td>
                     </tr>

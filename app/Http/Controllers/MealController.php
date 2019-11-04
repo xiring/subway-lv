@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Meal;
+use Carbon\Carbon;
+use App\MealOrder;
 use Illuminate\Http\Request;
 
 class MealController extends Controller
@@ -60,6 +62,58 @@ class MealController extends Controller
 			flash('Meal restored.', 'success')->important();
 			return redirect()->back();    			
 		}
+    }
+
+    public function order($id)
+    {
+    	$meal = Meal::find($id);
+    	$orders = MealOrder::where('meal_id', $meal->id)->orderBy('created_at', 'ASC')->get();
+    	return view('admin.meal.order', compact('meal', 'orders'));
+    }
+
+    public function orderStore(Request $request)
+    {
+    	//dd($request->all());
+    	$now = Carbon::now()->format('Y-m-d');
+    	$exist_order = MealOrder::where('meal_id', $request->meal_id)->where('order_date', $now)->where('is_active',1)->first();
+
+    	if(is_null($exist_order)){
+    	$order = new MealOrder();
+	    	$order->meal_id = $request->meal_id;
+	    	$order->order_date = $now;
+	    	if($order->save())
+			{
+				flash('Order added.', 'success')->important();
+				return redirect()->back();    			
+			}
+		}else{
+			flash('Order already created for today.', 'danger')->important();
+			return redirect()->back(); 
+		}
+    }
+
+    public function orderDelete($id)
+    {
+    	$order = MealOrder::find($id);
+    	$order->is_active = 0;
+
+    	if($order->update())
+		{
+			flash('Order deleted.', 'danger')->important();
+			return redirect()->back();    			
+		}	
+    }
+
+    public function orderRestore($id)
+    {
+    	$order = MealOrder::find($id);
+    	$order->is_active = 1;
+
+    	if($order->update())
+		{
+			flash('Order restored.', 'success')->important();
+			return redirect()->back();    			
+		}	
     }
 
 }

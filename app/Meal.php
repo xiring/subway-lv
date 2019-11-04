@@ -6,5 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Meal extends Model
 {
-    //
+    public function orders()
+    {
+    	return $this->hasMany('App\MealOrder', 'meal_id', 'id')->where('is_active',1);
+    }
 }
