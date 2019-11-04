@@ -8,6 +8,6 @@ class MealOrder extends Model
 {
     public function meal()
     {
-    	return $this->hasOne('App\Meal', 'meal_id', 'id');
+    	return $this->hasOne('App\Meal', 'id', 'meal_id');
     }
 }

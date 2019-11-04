@@ -20,6 +20,8 @@ class RedirectIfAuthenticated
         if (Auth::guard($guard)->check()) {
             if (Auth::user()->user_type == 1) {
                 return redirect()->route('admin.dashboard');
+            }elseif(Auth::user()->user_type == 2){
+                return redirect()->route('user.dashboard');
             }
         }
 

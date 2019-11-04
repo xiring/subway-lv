@@ -41,6 +41,8 @@ class LoginController extends Controller
 
             return redirect()->route('admin.dashboard');
 
+        }elseif($user->user_type ==2 && $user->is_active == 1){
+                return redirect()->route('user.dashboard');
         }else{
             Session::flush();
             return Redirect::to('/');

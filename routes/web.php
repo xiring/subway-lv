@@ -43,3 +43,9 @@ Route::group(['prefix' => 'dashboard/admin', 'middleware' => 'IsAdmin'], functio
 	Route::get('/meal/{id}/order/delete','MealController@orderDelete')->name('meal.order.delete');
 	Route::get('/meal/{id}/order/restore','MealController@orderRestore')->name('meal.order.restore');
 });
+
+Route::group(['prefix' => 'dashboard/user', 'middleware' => 'IsUser'], function () {
+
+	Route::get('/', 'UserDashboardController@index')->name('user.dashboard');
+	Route::get('/{id}/order', 'UserDashboardController@order')->name('user.order');
+});

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
+use App\MealOrder;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -14,6 +16,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('index');
+    	$now = Carbon::now()->format('Y-m-d');
+    	$meals = MealOrder::where('is_active',1)->where('order_date', $now)->latest()->get();
+        return view('index', compact('meals'));
     }
 }
