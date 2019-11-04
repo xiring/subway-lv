@@ -75,16 +75,8 @@
         </nav>
 
         <main class="py-4">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-md-12">
-                        <div class="card">
-                            @include('flash::message')
-                            @yield('content')
-                        </div>
-                    </div>
-                </div>
-            </div> 
+            @include('flash::message')
+            @yield('content')
             <footer class="page-footer font-small fixed-bottom" style="background-color: #31316e; color: #ffff;">
                 <!-- Copyright -->
             <div class="footer-copyright text-center py-3">© {{ date('Y') }} {{ config('app.name') }}.Brewed <i class="fas fa-coffee"></i> in Nepal By

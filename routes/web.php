@@ -31,4 +31,11 @@ Route::group(['prefix' => 'dashboard/admin', 'middleware' => 'IsAdmin'], functio
 	Route::post('/user/update', 'UserContoller@update')->name('user.update');
 	Route::get('/user/{id}/delete','UserContoller@delete')->name('user.delete');
 	Route::get('/user/{id}/restore','UserContoller@restore')->name('user.restore');
+
+	//Meals
+	Route::get('/meal/all/', 'MealController@index')->name('meal.index');
+	Route::post('/meal/store', 'MealController@store')->name('meal.store');
+	Route::post('/meal/update', 'MealController@update')->name('meal.update');
+	Route::get('/meal/{id}/delete','MealController@delete')->name('meal.delete');
+	Route::get('/meal/{id}/restore','MealController@restore')->name('meal.restore');
 });
