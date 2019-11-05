@@ -50,6 +50,12 @@
                                 </li>
                             @endif --}}
                         @else
+                             <li class="nav-item">
+                                <a class="nav-link" href="{{ route('messagebird') }}">Message Bird Settings</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('orders') }}">User Orders</a>
+                            </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('meal.index') }}">Meals</a>
                             </li>

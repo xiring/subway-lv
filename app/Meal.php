@@ -10,4 +10,9 @@ class Meal extends Model
     {
     	return $this->hasMany('App\MealOrder', 'meal_id', 'id')->where('is_active',1);
     }
+
+    public function options()
+    {
+    	return $this->hasMany('App\MealOption', 'meal_id', 'id');
+    }
 }

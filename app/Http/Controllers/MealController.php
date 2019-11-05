@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Meal;
+use App\MealOption;
 use Carbon\Carbon;
 use App\MealOrder;
+use App\MealOptionValue;
 use Illuminate\Http\Request;
 
 class MealController extends Controller
@@ -114,6 +116,68 @@ class MealController extends Controller
 			flash('Order restored.', 'success')->important();
 			return redirect()->back();    			
 		}	
+    }
+
+    public function options($id)
+    {
+        $meal = Meal::find($id);
+
+        $options = MealOption::where('meal_id', $meal->id)->orderBy('created_at', 'ASC')->get();
+        return view('admin.meal.option', compact('meal', 'options'));
+    }
+
+    public function optionStore(Request $request)
+    {
+        $option = new MealOption();
+        $option->meal_id = $request->meal_id;
+        $option->name = $request->name;
+
+        if($option->save()){
+
+            flash('Option addded.', 'success')->important();
+            return redirect()->back();
+        }
+    }
+
+    public function optionDelete($id)
+    {
+        $option = MealOption::find($id);
+
+        //if($option->delete())
+        //{
+            foreach ($option->values as $value) {
+                $value->delete();
+            }
+            $option->delete();
+            flash('Option deleted.', 'danger')->important();
+            return redirect()->back();        
+        //}
+    }
+
+    public function optionValueStore(Request $request)
+    {
+
+        $value = new MealOptionValue();
+        $value->option_id = $request->option_id;
+        $value->name = $request->name;
+
+        if($value->save())
+        {
+            flash('Value added.', 'success')->important();
+            return redirect()->back();
+        }
+    }
+
+    public function optionValueDelete($id)
+    {
+
+        $value = MealOptionValue::find($id);
+
+        if($value->delete())
+        {
+            flash('Value deleted.', 'danger')->important();
+            return redirect()->back();        
+        }   
     }
 
 }
